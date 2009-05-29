@@ -20,7 +20,7 @@ struct Matrix* GetMatrixFromDevice(struct Matrix* d_m){
   
   printf(">---%d, %d, %d---<", d_m->pitch, d_m->x, d_m->y);
 
-/  cudaMemcpy2D(h_m->matrix, 16, d_m->matrix, 64, 4, 4,cudaMemcpyDeviceToHost);
+  cudaMemcpy2D(h_m->matrix, 16, d_m->matrix, 64, 4, 4,cudaMemcpyDeviceToHost);
 
   
 

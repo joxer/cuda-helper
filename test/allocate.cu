@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../lib/cuda-helper.cpp"
+#include "../lib/cuda-helper.c"
 
 int main(){
 

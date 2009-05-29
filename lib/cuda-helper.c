@@ -22,7 +22,6 @@ struct Matrix* GetMatrixFromDevice(struct Matrix* d_m){
   h_m->matrix = (int*) malloc(sizeof(int) * h_m->x * h_m->y); // i'm faggot; by joxer
   cudaMemcpy2D(h_m->matrix, h_m->pitch, d_m->matrix, d_m->pitch, h_m->x, h_m->y,cudaMemcpyDeviceToHost);
   
-  
   return h_m;
 
 }
@@ -30,8 +29,8 @@ struct Matrix* GetMatrixFromDevice(struct Matrix* d_m){
 struct Matrix* SetMatrixOnDevice(struct Matrix* h_m){
   
   struct Matrix* d_m = MatrixAllocateOnDevice(h_m->x,h_m->y);
-  cudaMemcpy2D(d_m->matrix, h_m->pitch, h_m->matrix, h_m->x*sizeof(int), h_m->x * sizeof(int) , h_m->y,cudaMemcpyDeviceToHost);
-  return h_m;
+  cudaMemcpy2D(d_m->matrix, d_m->pitch, h_m->matrix, h_m->x*sizeof(int), h_m->x * sizeof(int) , h_m->y,cudaMemcpyDeviceToHost);
+  return d_m;
   
 }
 

@@ -40,4 +40,4 @@ int Matrix_mul(Matrix* m_a, Matrix* m_b, Matrix* m_c){
 
   
 
-};
+}

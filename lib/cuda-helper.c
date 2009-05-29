@@ -3,7 +3,9 @@
 struct Matrix* MatrixAllocateOnDevice(int width, int height){
   
   struct Matrix *d_tmp;
-  d_tmp->x = 3;
+  d_tmp = (struct Matrix*) malloc(sizeof(struct Matrix));
+  d_tmp->x = width;
+  d_tmp->y = height;
   cudaMallocPitch((void**)&(d_tmp->matrix), &(d_tmp->pitch), width * sizeof(int), height);
   return d_tmp;
 }

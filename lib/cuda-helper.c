@@ -12,18 +12,17 @@ struct Matrix* MatrixAllocateOnDevice(int width, int height){
 }
 
 struct Matrix* GetMatrixFromDevice(struct Matrix* d_m){
+
+  d_m = MatrixAllocateOnDevice(4,4);
   struct Matrix* h_m;
   h_m = (struct Matrix *) malloc (sizeof(struct Matrix));
   h_m->x = d_m->x;
   h_m->y = d_m->y;
   h_m->pitch = h_m->x * sizeof(int);
+  h_m->matrix = (int*) malloc(sizeof(int) * h_m->x * h_m->y); // i'm faggot; by joxer
+  cudaMemcpy2D(h_m->matrix, h_m->pitch, d_m->matrix, d_m->pitch, h_m->x, h_m->y,cudaMemcpyDeviceToHost);
   
-  printf(">---%d, %d, %d---<", d_m->pitch, d_m->x, d_m->y);
-
-  cudaMemcpy2D(h_m->matrix, 16, d_m->matrix, 64, 4, 4,cudaMemcpyDeviceToHost);
-
   
-
   return h_m;
 
 }

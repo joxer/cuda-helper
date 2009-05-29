@@ -20,21 +20,12 @@ struct Matrix* GetMatrixFromDevice(struct Matrix* d_m){
   
   printf(">---%d, %d, %d---<", d_m->pitch, d_m->x, d_m->y);
 
-  cudaMemcpy2D(h_m->matrix, h_m->x * sizeof(int), d_m->matrix, d_m->p
-itch, d_m->x , d_m->y,cudaMemcpyDeviceToHost);
+/  cudaMemcpy2D(h_m->matrix, 16, d_m->matrix, 64, 4, 4,cudaMemcpyDeviceToHost);
+
+  
+
   return h_m;
-  struct Matrix* GetMatrixFromDevice(struct Matrix* d_m){
-    struct Matrix* h_m;
-    h_m = (struct Matrix *) malloc (sizeof(struct Matrix));
-    h_m->x = d_m->x;
-    h_m->y = d_m->y;
-    h_m->pitch = h_m->x * sizeof(int);
 
-    printf(">---%d, %d, %d---<", d_m->pitch, d_m->x, d_m->y);
-
-    cudaMemcpy2D(h_m->matrix, h_m->x * sizeof(int), d_m->matrix, d_m->pitch, d_m->x , d_m->y,cudaMemcpyDeviceToHost);
-    return h_m;
-  }
 }
 
 struct Matrix* SetMatrixOnDevice(struct Matrix* h_m){

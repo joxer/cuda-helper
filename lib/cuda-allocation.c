@@ -1,4 +1,6 @@
-#include "../src/cuda-helper.h"
+#include "../src/common.h"
+
+// MatrixAllocateOnDevice allocate an amount of memory on the device and set the pitch and the width and the height of the matrix
 
 struct Matrix* MatrixAllocateOnDevice(int width, int height){
   
@@ -11,11 +13,14 @@ struct Matrix* MatrixAllocateOnDevice(int width, int height){
   return d_tmp;
 }
 
+// MatrixAllocateOnHost allocate an amount of memory on host and set width, height,  pitch and allocate matrix
+
 struct Matrix* MatrixAllocateOnHost(int width, int height){
 
 
   struct Matrix *h_tmp;
   h_tmp = (struct Matrix*) malloc(sizeof(struct Matrix));
+  h_tmp->matrix = (int*) malloc ( width * height * sizeof(int));
   h_tmp->x = width;
   h_tmp->y = height;
   h_tmp->pitch = h_tmp->x * sizeof(int);
@@ -25,7 +30,6 @@ struct Matrix* MatrixAllocateOnHost(int width, int height){
 
 struct Matrix* GetMatrixFromDevice(struct Matrix* d_m){
 
-  d_m = MatrixAllocateOnDevice(4,4);
   struct Matrix* h_m;
   h_m = (struct Matrix *) malloc (sizeof(struct Matrix));
   h_m->x = d_m->x;

@@ -2,7 +2,7 @@ COMPILER = /usr/local/cuda/bin/nvcc
 OPTIMIZE = --optimize 2
 SHARED = --shared -Xcompiler -fPIC
 CFLAGS = $(OPTIMIZE)
-FOLDER = lib/
+FOLDER = lib
 FILES = $(FOLDER)/cuda-allocation.cu
 
 

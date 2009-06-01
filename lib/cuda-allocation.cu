@@ -1,4 +1,4 @@
-#include "../src/cuda-allocation.h"
+#include "../src/common.h"
 
 /*
 

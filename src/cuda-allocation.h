@@ -1,5 +1,5 @@
 
-struct Matrix* MatrixAllocateOnDevice(int width, int height, int size);
+struct Matrix* MatrixAllocateOnDevice(int width, int height);
 struct Matrix* MatrixAllocateOnHost(int width, int height);
 struct Matrix* GetMatrixFromDevice(struct Matrix* d_m);
 struct Matrix* SetMatrixOnDevice(struct Matrix* h_m);

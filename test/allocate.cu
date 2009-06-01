@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../lib/cuda-allocation.cu"
+#include <cuda-helper/common.h>
 
 int main(){
 

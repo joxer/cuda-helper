@@ -1,5 +1,5 @@
 COMPILER = /usr/local/cuda/bin/nvcc
-OPTIMIZE = -o2
+OPTIMIZE = --optimize 2
 SHARED = --shared -Xcompiler -fPIC
 CFLAGS = $(OPTIMIZE)
 FOLDER = lib

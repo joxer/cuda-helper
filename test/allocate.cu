@@ -15,5 +15,19 @@ int main(){
   printf(" %d %d %d ", m_h->pitch, m_h->x, m_h->y);
   
 
+  struct Vector* h = VectorAllocateOnHost(5);
+
+  
+  int i;
+  for(i = 0;i < h->width;h->vector[i] = i++);
+  puts("");
+  for(i = 0;i < h->width;printf("%d ", h->vector[i++]));
+  struct Vector* d = SetVectorOnDevice(h);
+  h = GetVectorFromDevice(d);
+  puts("");
+  for(i = 0;i < h->width;printf("%d ", h->vector[i++]));
+  
+
+
   return 0;
 }

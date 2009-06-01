@@ -1,23 +1,6 @@
 #include "../src/common.h"
 
-/*
-
-====
-
-
- Matrix Part 
-
-
-====
-
-
-*/
-
-
-
-
 // MatrixAllocateOnDevice allocate an amount of memory on the device and set the pitch and the width and the height of the matrix
-
 
 struct Matrix* MatrixAllocateOnDevice(int width, int height){
   
@@ -67,30 +50,6 @@ struct Matrix* SetMatrixOnDevice(struct Matrix* h_m){
   
 }
 
-/*
-  
-===
-
-End Matrix Part
-
-===
-  
-  
- */
-
-
-/*
-
-===
-
-  Begin Vector Part
-
-===  
-  
- */
-
-
-
 struct Vector* VectorAllocateOnDevice(int width){
 
   struct Vector *d_m;
@@ -138,3 +97,4 @@ struct Vector* SetVectorOnDevice(struct Vector* h_m){
   cudaMemcpy(d_m->vector, h_m->vector, sizeof(int) * h_m->width, cudaMemcpyHostToDevice);
   return d_m;
 }
+

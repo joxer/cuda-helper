@@ -1,4 +1,3 @@
-
 struct Matrix* MatrixAllocateOnDevice(int width, int height);
 struct Matrix* MatrixAllocateOnHost(int width, int height);
 struct Matrix* GetMatrixFromDevice(struct Matrix* d_m);

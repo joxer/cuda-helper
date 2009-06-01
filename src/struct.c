@@ -1,4 +1,3 @@
-
 struct Matrix {
   int *matrix;
   int x;

@@ -1,15 +1,15 @@
 COMPILER = /usr/local/cuda/bin/nvcc
 OPTIMIZE = --optimize 2
-SHARED = --shared -Xcompiler -fPIC
-CFLAGS = $(OPTIMIZE)
-FOLDER = lib
-FILES = $(FOLDER)/cuda-allocation.cu
-
+SHARED   = --shared -Xcompiler -fPIC
+CFLAGS   = $(OPTIMIZE)
+FOLDER   = lib
+FILES    = $(FOLDER)/cuda-allocation.cu
+OBJ      = bin
 
 main: libcuda-helper.so
 
 libcuda-helper.so: $(FILES)	
-	/usr/local/cuda/bin/nvcc $(CFLAGS) $(SHARED) $(FILES) -o libcuda-helper.so
+	/usr/local/cuda/bin/nvcc $(CFLAGS) $(SHARED) $(FILES) -o $(OBJ)/libcuda-helper.so
 
 headers:
 	mkdir cuda-helper

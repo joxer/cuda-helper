@@ -1,6 +1,23 @@
 #include "../src/cuda-allocation.h"
 
+/*
+
+====
+
+
+ Matrix Part 
+
+
+====
+
+
+*/
+
+
+
+
 // MatrixAllocateOnDevice allocate an amount of memory on the device and set the pitch and the width and the height of the matrix
+
 
 struct Matrix* MatrixAllocateOnDevice(int width, int height){
   
@@ -50,4 +67,77 @@ struct Matrix* SetMatrixOnDevice(struct Matrix* h_m){
   
 }
 
+/*
+  
+===
 
+End Matrix Part
+
+===
+  
+  
+ */
+
+
+/*
+
+===
+
+  Begin Vector Part
+
+===  
+  
+ */
+
+
+
+struct Vector* VectorAllocateOnDevice(int width){
+
+  struct Vector *d_v;
+
+  d_m = (struct Vector*) malloc(sizeof(struct Vector*));
+  d_m->width = width;
+  d_m->vector = (int*) malloc(sizeof(int) * width);
+  memset(d_m->matrix,0, sizeof(int) * width);
+  cudaMalloc((void**)&d_v, sizeof(int) * width);
+  return d_m;
+  
+
+}
+
+struct Vector* VectorAllocateOnHost(int width){
+
+
+  struct Vector* h_m;
+
+  h_m->width = width;
+  h_m->vector = (int*) malloc(sizeof(int) * width);
+  memset(h_m->matrix,0, sizeof(int) * width);
+  h_m = (struct Vector*) malloc(sizeof(struct Vector*));
+  return h_m;
+
+}
+
+struct Vector* GetVectorFromDevice(struct Vector* d_m){
+
+
+  struct Vector* h_m;
+  h_m = (struct Vector*) malloc(sizeof(struct Vector*));
+  h_m->width = d_m->width;
+  h_m->vector = (int*) malloc(sizeof(int) * h_m->width);
+  memset(h_m->matrix,0, sizeof(int) * h_m->width);
+  cudaMemcpy(h_m, d_m, sizeof(int) * d_m->width, cudaMemcpyDeviceToHost);
+  return h_m;
+    
+};
+
+
+struct Vector* SetVectorOnDevice(struct Vector* h_m){
+
+  struct Vector* d_m;
+  d_m = (struct Vector*) malloc(sizeof(struct Vector*));
+  d_m->width = h_m->width;
+  d_m->vector = (int*) malloc(sizeof(int) * d_m->width);
+  memset(d_m->matrix,0, sizeof(int) * d_m->width);
+  
+}

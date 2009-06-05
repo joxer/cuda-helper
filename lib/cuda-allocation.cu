@@ -17,7 +17,6 @@ struct Matrix* MatrixAllocateOnDevice(int width, int height){
 
 struct Matrix* MatrixAllocateOnHost(int width, int height){
 
-
   struct Matrix *h_tmp;
   h_tmp = (struct Matrix*) malloc(sizeof(struct Matrix));
   h_tmp->matrix = (int*) malloc ( width * height * sizeof(int));
@@ -80,11 +79,12 @@ struct Vector* VectorAllocateOnHost(int width){
 struct Vector* GetVectorFromDevice(struct Vector* d_m){
 
 
-  struct Vector* h_m;
-  h_m = (struct Vector*) malloc(sizeof(struct Vector));
+  struct Vector* h_m = VectorAllocateOnHost(d_m->width);
+  /* h_m = (struct Vector*) malloc(sizeof(struct Vector));
   h_m->width = d_m->width;
   h_m->vector = (int*) malloc(sizeof(int) * h_m->width);
   memset(h_m->vector, 0 , sizeof(int) * h_m->width);
+  */
   cudaMemcpy(h_m->vector, d_m->vector, sizeof(int) * d_m->width, cudaMemcpyDeviceToHost);
   return h_m;
     

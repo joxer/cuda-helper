@@ -27,7 +27,21 @@ int main(){
   puts("");
   for(i = 0;i < h->width;printf("%d ", h->vector[i++]));
   
+  puts("\n");
+  
 
+  struct Vector* first = VectorAllocateOnHost(90), *second = VectorAllocateOnHost(90);
+  
+  for(i = 0 ;i < 90;i++){
+    first->vector[i] = i;
+    second->vector[i] = i;
+  }
+  struct Vector* df = SetVectorOnDevice(first), *dg = SetVectorOnDevice(second);
+
+  struct Vector* host = VectorSum(df, dg);
+  
+  for(i = 0;i < 90;i++)
+    printf("%d ", host->vector[i]);
 
   return 0;
 }

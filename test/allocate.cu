@@ -2,45 +2,19 @@
 #include <cuda-helper/common.h>
 
 int main(){
-
-  struct Matrix* m_d = MatrixAllocateOnDevice(4, 4);
- 
-
-
-
-  struct Matrix* m_h = GetMatrixFromDevice(m_d); 
-  struct Matrix* m_b = SetMatrixOnDevice(m_h);
-    
-  printf(" %d %d %d \n", m_b->pitch, m_b->x, m_b->y);
-  printf(" %d %d %d ", m_h->pitch, m_h->x, m_h->y);
-  
-
-  struct Vector* h = VectorAllocateOnHost(5);
-
-  
   int i;
-  for(i = 0;i < h->width;h->vector[i] = i++);
-  puts("");
-  for(i = 0;i < h->width;printf("%d ", h->vector[i++]));
-  struct Vector* d = SetVectorOnDevice(h);
-  h = GetVectorFromDevice(d);
-  puts("");
-  for(i = 0;i < h->width;printf("%d ", h->vector[i++]));
+  int N = 16385;
+  struct Vector* first = VectorAllocateOnHost(N), *second = VectorAllocateOnHost(N);
   
-  puts("\n");
-  
-
-  struct Vector* first = VectorAllocateOnHost(90), *second = VectorAllocateOnHost(90);
-  
-  for(i = 0 ;i < 90;i++){
+  for(i = 0 ;i < N;i++){
     first->vector[i] = i;
-    second->vector[i] = i;
+    second->vector[i] = 0;
   }
   struct Vector* df = SetVectorOnDevice(first), *dg = SetVectorOnDevice(second);
 
   struct Vector* host = VectorSum(df, dg);
   
-  for(i = 0;i < 90;i++)
+  for(i = 0;i < N;i++)
     printf("%d ", host->vector[i]);
 
   return 0;

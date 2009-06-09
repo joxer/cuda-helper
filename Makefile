@@ -20,3 +20,4 @@ install: headers
 	mv bin/libcuda-helper.so /usr/lib/
 
 
+all: main install

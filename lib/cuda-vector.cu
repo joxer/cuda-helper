@@ -30,11 +30,11 @@ __global__ void mul(int* first, int* second, int* result, int width){
 
 
 struct Vector* VectorSum(struct Vector* first, struct Vector* second){
-
+  int n = first->width/512 + 512;
   if(first->position != 1 || second->position != 1 ){
     struct Vector* tmp_d = VectorAllocateOnDevice(first->width);
-    dim3 dimblock(512);
-    dim3 block_size(first->width/512 + 1 + (first->width%512 == 0 ? 0 : 1));
+    dim3 dimblock(n);
+    dim3 block_size(512);
     sum <<<dimblock, block_size>>> (first->vector, second->vector, tmp_d->vector, first->width);
     struct Vector* tmp_h = GetVectorFromDevice(tmp_d);
     return tmp_h;

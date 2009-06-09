@@ -3,7 +3,7 @@
 
 int main(){
   int i;
-  int N = 16385;
+  int N = 100000000;
   struct Vector* first = VectorAllocateOnHost(N), *second = VectorAllocateOnHost(N);
   
   for(i = 0 ;i < N;i++){

@@ -9,3 +9,7 @@
 #ifndef CUDA_VECTOR_H
 #include "cuda-vector.h"
 #endif
+
+#ifndef CUDA_MATRIX_H
+#include "cuda-matrix.h"
+#endif

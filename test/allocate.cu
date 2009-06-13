@@ -2,7 +2,9 @@
 #include <cuda-helper/common.h>
 
 int main(){
-  int i;
+    int i;
+
+    /*
   int N = 10000000;
   struct Vector* first = VectorAllocateOnHost(N), *second = VectorAllocateOnHost(N);
   
@@ -16,6 +18,22 @@ int main(){
   
   for(i = 0;i < N;i++)
     printf("%x ", host->vector[i]);
+    */
+
+    int n = 4;
+    struct Matrix* tmp_h1 = MatrixAllocateOnHost(n, n);
+    struct Matrix* tmp_h2 = MatrixAllocateOnHost(n, n);
+    
+    for(i = 0; i <n * n;i++){
+      tmp_h1->matrix[i] = i;
+      tmp_h2->matrix[i] = i;
+    }
+
+    struct Matrix* tmp_d1 = SetMatrixOnDevice(tmp_h1);
+    struct Matrix* tmp_d2 = SetMatrixOnDevice(tmp_h2);
+    struct Matrix* tmp_h3 = MatrixSum(tmp_d1, tmp_d2);
+    for( i = 0; i < n*n ; i++)
+      printf(" %d", tmp_h3->matrix[i]);
 
   return 0;
 }

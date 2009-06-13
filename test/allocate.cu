@@ -20,7 +20,7 @@ int main(){
     printf("%x ", host->vector[i]);
     */
 
-    int n = 4;
+    int n = 20;
     struct Matrix* tmp_h1 = MatrixAllocateOnHost(n, n);
     struct Matrix* tmp_h2 = MatrixAllocateOnHost(n, n);
     

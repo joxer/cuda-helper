@@ -20,7 +20,7 @@ int main(){
     printf("%x ", host->vector[i]);
     */
 
-    int n = 4;
+    int n = 5;
     struct Matrix* tmp_h1 = MatrixAllocateOnHost(n, n);
     struct Matrix* tmp_h2 = MatrixAllocateOnHost(n, n);
     
@@ -33,7 +33,7 @@ int main(){
     struct Matrix* tmp_d2 = SetMatrixOnDevice(tmp_h2);
     struct Matrix* tmp_h3 = MatrixSum(tmp_d1, tmp_d2);
     for( i = 0; i < n*n ; i++)
-      printf(" %d", tmp_h3->matrix[i]);
+      printf("%d\n", tmp_h3->matrix[i]);
 
   return 0;
 }

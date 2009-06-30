@@ -19,7 +19,7 @@ endif
 headers:
 	if [ -a "cuda-helper" ];then : ;else mkdir cuda-helper;	fi ;
 	if [ -a "/usr/include/cuda-helper" ];then rm -r /usr/include/cuda-helper; fi ;
-	cp src/*.h cuda-helper
+	cp include/*.h cuda-helper
 	mv cuda-helper /usr/include/
 
 install: headers

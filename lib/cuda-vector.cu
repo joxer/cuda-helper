@@ -1,5 +1,5 @@
 #ifndef COMMON_H
-#include "../src/common.h"
+#include "../include/common.h"
 #endif 
 
 __global__ void sum(int* first, int* second, int* result, int width){
@@ -48,6 +48,7 @@ struct Vector* VectorSum(struct Vector* first, struct Vector* second){
     dim3 block_size(512);
     sum <<<dimblock, block_size>>> (first->vector, second->vector, tmp_d->vector, first->width);
     struct Vector* tmp_h = GetVectorFromDevice(tmp_d);
+    cudaFree(tmp_d);
     return tmp_h;
   }
   return NULL;
@@ -61,7 +62,9 @@ struct Vector* VectorSub(struct Vector* first, struct Vector* second){
     dim3 dimblock(n);
     dim3 block_size(512);
     sub <<<dimblock, block_size>>> (first->vector, second->vector, tmp_d->vector, first->width);
+
     struct Vector* tmp_h = GetVectorFromDevice(tmp_d);
+    cudaFree(tmp_d);
     return tmp_h;
   }
   return NULL;
@@ -76,6 +79,7 @@ struct Vector* VectorMul(struct Vector* first, struct Vector* second){
     dim3 block_size(512);
     mul <<<dimblock, block_size>>> (first->vector, second->vector, tmp_d->vector, first->width);
     struct Vector* tmp_h = GetVectorFromDevice(tmp_d);
+    cudaFree(tmp_d);
     return tmp_h;
   }
   return NULL;
@@ -90,6 +94,7 @@ struct Vector* VectorDiv(struct Vector* first, struct Vector* second){
     dim3 block_size(512);
     div <<<dimblock, block_size>>> (first->vector, second->vector, tmp_d->vector, first->width);
     struct Vector* tmp_h = GetVectorFromDevice(tmp_d);
+    cudaFree(tmp_d);
     return tmp_h;
   }
   return NULL;

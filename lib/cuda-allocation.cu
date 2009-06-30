@@ -1,5 +1,5 @@
 #ifndef COMMON_H
-#include "../src/common.h"
+#include "../include/common.h"
 #endif 
 // MatrixAllocateOnDevice allocate an amount of memory on the device and set the pitch and the width and the height of the matrix
 
@@ -9,8 +9,8 @@ struct Matrix* MatrixAllocateOnDevice(int width, int height){
   d_tmp = (struct Matrix*) malloc(sizeof(struct Matrix));
   d_tmp->x = width;
   d_tmp->y = height;
-  d_tmp->position = 0;
-  cudaMallocPitch((void**)&(d_tmp->matrix), &(d_tmp->pitch), width * sizeof(int), height);
+  d_tmp->position = 1;
+  cudaMalloc((void**)&d_tmp->matrix, sizeof(int)*width*height);
   return d_tmp;
 }
 
@@ -23,8 +23,7 @@ struct Matrix* MatrixAllocateOnHost(int width, int height){
   h_tmp->matrix = (int*) malloc ( width * height * sizeof(int));
   h_tmp->x = width;
   h_tmp->y = height;
-  h_tmp->position = 1;
-  h_tmp->pitch = h_tmp->x * sizeof(int);
+  h_tmp->position = 0;
   return h_tmp;
 
 }
@@ -32,7 +31,7 @@ struct Matrix* MatrixAllocateOnHost(int width, int height){
 struct Matrix* GetMatrixFromDevice(struct Matrix* d_m){
 
   struct Matrix* h_m = MatrixAllocateOnHost(d_m->x, d_m->y);
-  cudaMemcpy2D(h_m->matrix, h_m->pitch, d_m->matrix, d_m->pitch, h_m->x * sizeof(int), h_m->y,cudaMemcpyDeviceToHost);
+  cudaMemcpy(h_m->matrix, d_m->matrix, sizeof(int)*d_m->x*d_m->y, cudaMemcpyDeviceToHost);
   
   return h_m;
 
@@ -41,7 +40,7 @@ struct Matrix* GetMatrixFromDevice(struct Matrix* d_m){
 struct Matrix* SetMatrixOnDevice(struct Matrix* h_m){
   
   struct Matrix* d_m = MatrixAllocateOnDevice(h_m->x,h_m->y);
-  cudaMemcpy2D(d_m->matrix, d_m->pitch, h_m->matrix, h_m->x*sizeof(int), h_m->x * sizeof(int), h_m->y,cudaMemcpyHostToDevice);
+  cudaMemcpy(d_m->matrix, h_m->matrix, sizeof(int)*h_m->x*h_m->y,cudaMemcpyHostToDevice);
   return d_m;
   
 }
@@ -53,6 +52,7 @@ struct Vector* VectorAllocateOnDevice(int width){
   d_m = (struct Vector*) malloc(sizeof(struct Vector));
   d_m->width = width;
   d_m->vector = (int*) malloc(sizeof(int) * width);
+  d_m->position = 1;
   memset(d_m->vector,0, sizeof(int) * width);
   cudaMalloc((void**)&d_m->vector, sizeof(int) * width);
 
@@ -69,7 +69,7 @@ struct Vector* VectorAllocateOnHost(int width){
   h_m->vector = (int*) malloc(sizeof(int) * width);
   h_m->width = width;
   memset(h_m->vector,0, sizeof(int) * width);
-  
+  h_m->position = 0;
   return h_m;
 
 }
@@ -78,7 +78,6 @@ struct Vector* GetVectorFromDevice(struct Vector* d_m){
 
 
   struct Vector* h_m = VectorAllocateOnHost(d_m->width);
-  
   cudaMemcpy(h_m->vector, d_m->vector, sizeof(int) * d_m->width, cudaMemcpyDeviceToHost);
   return h_m;
     
